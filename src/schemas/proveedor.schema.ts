@@ -5,5 +5,4 @@ export const ProveedorSchema = new Schema ({
     nombre: String,
     diretion: String,
     phone: Number,
-
 })
