@@ -6,6 +6,7 @@ import {User} from '../interfaces/user.inteface';
 import { CreateUserDTO } from '../dto/user.dto';
 import { create } from 'domain';
 import { Observable, from } from 'rxjs';
+import { LoginDTO } from '../dto/login.dto';
 
 
 
@@ -38,7 +39,16 @@ export class UserService {
         const updateUser = await this.userModel.findByIdAndUpdate(userID,
             createUserDTO, {new: true});
             return updateUser;
-
     }
-    
+    async login(loginDTO: LoginDTO): Promise<any>{
+        const user= await this.userModel.findOne(
+            {user:loginDTO.user}
+        )
+        if(!user)
+            return "no existe"
+        if(user.password != loginDTO.password){
+            return "contraseña incorrecta";
+        }
+        return user
+    }
 }

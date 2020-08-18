@@ -39,7 +39,7 @@ export class ProveedorController {
     }
 
     @Delete('/delete')
-    async deleteProveedor(@Res()res, @Param('proveedorID')proveedorID){
+    async deleteProveedor(@Res()res, @Query('proveedorID')proveedorID){
         const proveedorDelete = await  this.proveedorService.deleteProveedor(proveedorID);
         if(!proveedorID) throw new NotFoundException('Provider does not exits');
         return res.status(HttpStatus.OK).json({

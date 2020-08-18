@@ -2,6 +2,7 @@ import { Controller, Post, Get, Put, Delete, Res, HttpStatus ,Body, Param, NotFo
 import { CreateUserDTO } from '../dto/user.dto';
 import { UserService } from './user.service';
 import { create } from 'domain';
+import { LoginDTO } from '../dto/login.dto';
 
 
 @Controller('user')
@@ -53,5 +54,14 @@ export class UserController {
            updateUser
        });
      }
+
+     @Post('/login')
+    async loginPost(@Res()res, @Body() loginDTO: LoginDTO){
+      const user = await this.userService.login(loginDTO);
+      return res.status(HttpStatus.OK).json({
+            message: 'Ingreso exitoso',
+             user
+        });
+    }
         
 }
